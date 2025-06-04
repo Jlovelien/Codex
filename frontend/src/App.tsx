@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import DeviceCard from './components/DeviceCard';
+import SolarProductionChart from './components/SolarProductionChart';
 import './App.css';
 
 interface Device {
@@ -48,6 +49,7 @@ export default function App() {
   return (
     <div className="container">
       <h1>Smart Home Dashboard</h1>
+      <SolarProductionChart />
       <div className="devices">
         {devices.map((device, idx) => (
           <div

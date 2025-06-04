@@ -1,6 +1,8 @@
 .container {
   font-family: Arial, sans-serif;
   padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .devices {
@@ -15,6 +17,7 @@
   border-radius: 4px;
   width: 200px;
   cursor: grab;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .device-card:active {
@@ -27,4 +30,11 @@
 
 .device-card.off {
   background-color: #ffe0e0;
+}
+
+.solar-chart {
+  margin-bottom: 2rem;
+  background: #ffffffaa;
+  padding: 1rem;
+  border-radius: 8px;
 }

@@ -1,4 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import React from 'react'
+import { vi } from 'vitest'
+
+vi.mock('react-chartjs-2', () => ({
+  Line: () => <canvas role="img" />,
+}))
 import App from '../App'
 import { describe, it, expect } from 'vitest'
 
@@ -15,7 +21,11 @@ describe('App', () => {
 
   it('reorders devices via drag and drop', () => {
     render(<App />)
-    const headings = () => screen.getAllByRole('heading', { level: 2 }).map(h => h.textContent)
+    const headings = () =>
+      screen
+        .getAllByRole('heading', { level: 2 })
+        .map(h => h.textContent)
+        .filter(t => t !== 'Solar Production for Today')
     expect(headings().slice(0, 3)).toEqual([
       'Solar Panels',
       'Smart Lights',
@@ -24,6 +34,7 @@ describe('App', () => {
 
     const wrappers = screen
       .getAllByRole('heading', { level: 2 })
+      .filter(h => h.textContent !== 'Solar Production for Today')
       .map(h => h?.closest('div[draggable="true"]') as HTMLElement)
 
     fireEvent.dragStart(wrappers[0])
@@ -35,5 +46,14 @@ describe('App', () => {
       'Solar Panels',
       'Google Home',
     ])
+  })
+
+  it('renders solar production chart', () => {
+    render(<App />)
+    expect(
+      screen.getAllByRole('heading', { name: /Solar Production for Today/i })
+        .length
+    ).toBeGreaterThan(0)
+    expect(screen.getAllByTestId('solar-chart')[0].querySelector('canvas')).toBeTruthy()
   })
 })
