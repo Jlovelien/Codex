@@ -1,6 +1,6 @@
 # Smart Home Dashboard
 
-This repository contains the code for a React-based dashboard to manage and monitor IoT devices in a smart home. The project is bootstrapped using Vite with TypeScript.
+This repository contains the code for a React-based dashboard to manage and monitor IoT devices in a smart home. The project is bootstrapped using Vite with TypeScript. The dashboard now includes simple controls to toggle each device on or off.
 
 ## Development
 
