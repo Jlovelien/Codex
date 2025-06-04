@@ -14,10 +14,35 @@ export default function App() {
     { name: 'Google Home', isOn: true },
   ]);
 
+  const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
+
   const toggleDevice = (index: number) => {
     setDevices((prev) =>
       prev.map((d, i) => (i === index ? { ...d, isOn: !d.isOn } : d)),
     );
+  };
+
+  const handleDragStart = (index: number) => {
+    setDraggingIndex(index);
+  };
+
+  const handleDragOver = (
+    event: React.DragEvent<HTMLDivElement>,
+    index: number,
+  ) => {
+    event.preventDefault();
+    if (draggingIndex === null || draggingIndex === index) return;
+    setDevices((prev) => {
+      const updated = [...prev];
+      const [item] = updated.splice(draggingIndex, 1);
+      updated.splice(index, 0, item);
+      return updated;
+    });
+    setDraggingIndex(index);
+  };
+
+  const handleDrop = () => {
+    setDraggingIndex(null);
   };
 
   return (
@@ -25,12 +50,19 @@ export default function App() {
       <h1>Smart Home Dashboard</h1>
       <div className="devices">
         {devices.map((device, idx) => (
-          <DeviceCard
+          <div
             key={device.name}
-            name={device.name}
-            isOn={device.isOn}
-            onToggle={() => toggleDevice(idx)}
-          />
+            draggable
+            onDragStart={() => handleDragStart(idx)}
+            onDragOver={(e) => handleDragOver(e, idx)}
+            onDrop={handleDrop}
+          >
+            <DeviceCard
+              name={device.name}
+              isOn={device.isOn}
+              onToggle={() => toggleDevice(idx)}
+            />
+          </div>
         ))}
       </div>
     </div>
