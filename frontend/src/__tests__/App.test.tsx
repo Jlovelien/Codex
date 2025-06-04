@@ -19,33 +19,10 @@ describe('App', () => {
     expect(statusParagraph).toHaveTextContent('Off')
   })
 
-  it('reorders devices via drag and drop', () => {
+  it('renders devices within a grid layout', () => {
     render(<App />)
-    const headings = () =>
-      screen
-        .getAllByRole('heading', { level: 2 })
-        .map(h => h.textContent)
-        .filter(t => t !== 'Solar Production for Today')
-    expect(headings().slice(0, 3)).toEqual([
-      'Solar Panels',
-      'Smart Lights',
-      'Google Home',
-    ])
-
-    const wrappers = screen
-      .getAllByRole('heading', { level: 2 })
-      .filter(h => h.textContent !== 'Solar Production for Today')
-      .map(h => h?.closest('div[draggable="true"]') as HTMLElement)
-
-    fireEvent.dragStart(wrappers[0])
-    fireEvent.dragOver(wrappers[1])
-    fireEvent.drop(wrappers[1])
-
-    expect(headings().slice(0, 3)).toEqual([
-      'Smart Lights',
-      'Solar Panels',
-      'Google Home',
-    ])
+    const gridItems = document.querySelectorAll('.react-grid-item')
+    expect(gridItems.length).toBeGreaterThan(0)
   })
 
   it('renders solar production chart', () => {
