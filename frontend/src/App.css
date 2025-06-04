@@ -1,0 +1,17 @@
+.container {
+  font-family: Arial, sans-serif;
+  padding: 2rem;
+}
+
+.devices {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.device-card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 4px;
+  width: 200px;
+}
