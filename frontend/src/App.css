@@ -5,17 +5,12 @@
   margin: 0 auto;
 }
 
-.devices {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
 .device-card {
   border: 1px solid #ccc;
   padding: 1rem;
   border-radius: 4px;
-  width: 200px;
+  width: 100%;
+  height: 100%;
   cursor: grab;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -37,4 +32,12 @@
   background: #ffffffaa;
   padding: 1rem;
   border-radius: 8px;
+}
+
+.layout {
+  margin-top: 1rem;
+}
+
+.grid-item {
+  display: flex;
 }
